@@ -1,5 +1,6 @@
 # Notes diagram
 
+```mermaid
     sequenceDiagram
         participant Navegador as Browser
         participant Servidor as Server
@@ -17,3 +18,4 @@
         Servidor-->>Navegador: main.js
         Navegador->>Servidor: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
         Servidor-->>Navegador: data.json
+```
