@@ -1,4 +1,5 @@
 #Notes diagram
+
 sequenceDiagram
     participant Navegador as Browser
     participant Servidor as Server
