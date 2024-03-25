@@ -51,21 +51,30 @@ const Button = ({handler, text}) => {
 
 const Statistics = ({goodStats, neutralStats, badStats}) => {
 
-  const allClicks = goodStats + neutralStats + badStats 
-  const averageClicks = allClicks > 0 ? (goodStats - badStats) / allClicks : 0
-  const positiveClicks = allClicks > 0 ? goodStats * 100 / allClicks : 0
+  const totalClicks = goodStats + neutralStats + badStats 
+  const averageClicks = (goodStats - badStats) / totalClicks
+  const positiveClicks = goodStats * 100 / totalClicks
 
-  return(
-    <>
-      <h2>Statistics</h2>
-      <Stat text={'good'} stats={goodStats} />
-      <Stat text={'neutral'} stats={neutralStats} />
-      <Stat text={'bad'} stats={badStats} />
-      <Stat text={'all'} stats={allClicks} />
-      <Stat text={'average'} stats={averageClicks} />
-      <Stat text={'positive'} stats={positiveClicks + '%'} />
-    </>
-  )
+  if(totalClicks > 0) {
+    return(
+      <>
+        <h2>Statistics</h2>
+        <Stat text={'good'} stats={goodStats} />
+        <Stat text={'neutral'} stats={neutralStats} />
+        <Stat text={'bad'} stats={badStats} />
+        <Stat text={'all'} stats={totalClicks} />
+        <Stat text={'average'} stats={averageClicks} />
+        <Stat text={'positive'} stats={positiveClicks + '%'} />
+      </>
+    )
+  } else {
+    return(
+      <>
+        <h2>Statistics</h2>
+        <p>No feedback given</p>
+      </>
+    )
+  }
 }
 
 const Stat = ({text, stats}) => {
