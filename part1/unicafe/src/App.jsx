@@ -60,12 +60,14 @@ const Statistics = ({goodStats, neutralStats, badStats}) => {
       <>
         <h2>Statistics</h2>
         <table>
-          <StatisticLine text={'good'} stats={goodStats} />
-          <StatisticLine text={'neutral'} stats={neutralStats} />
-          <StatisticLine text={'bad'} stats={badStats} />
-          <StatisticLine text={'all'} stats={totalClicks} />
-          <StatisticLine text={'average'} stats={averageClicks} />
-          <StatisticLine text={'positive'} stats={positiveClicks + '%'} />
+          <tbody>
+            <StatisticLine text={'good'} stats={goodStats} />
+            <StatisticLine text={'neutral'} stats={neutralStats} />
+            <StatisticLine text={'bad'} stats={badStats} />
+            <StatisticLine text={'all'} stats={totalClicks} />
+            <StatisticLine text={'average'} stats={averageClicks} />
+            <StatisticLine text={'positive'} stats={positiveClicks + '%'} />
+          </tbody>
         </table>
       </>
     )
@@ -80,13 +82,11 @@ const Statistics = ({goodStats, neutralStats, badStats}) => {
 }
 
 const StatisticLine = ({text, stats}) => {
-  return(
-    <tbody>
-      <tr>
-        <td>{text}</td>
-        <td>{stats}</td>
-      </tr>
-    </tbody>
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{stats}</td>
+    </tr>
   )
 }
 
