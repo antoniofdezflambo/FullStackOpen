@@ -31,15 +31,29 @@ const App = () => {
     let newVotes = [...votes]
     newVotes[selected] += 1
     setVotes(newVotes)
+
+    // change most voted index
+    if (newVotes[selected] > newVotes[mostVotesIndex]) {
+      recount(selected)
+    }
+  }
+
+  // Most votes
+  const [mostVotesIndex, setMostVotesIndex] = useState(0)
+
+  const recount = (newIndex) => {
+    setMostVotesIndex(newIndex)
   }
 
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <Votes anecdoteVotes={votes[selected]}/>
+      <h1>Anecdote of the day</h1>
+      <Anecdote anecdote={anecdotes[selected]} votes={votes[selected]} />
       <AnecdoteButton handleClick={setRandomNumber} />
       <VoteButton handleClick={vote} />
+      <h2>Anecdote with most votes</h2>
+      <Anecdote anecdote={anecdotes[mostVotesIndex]} votes={votes[mostVotesIndex]} />
     </div>
   )
 }
@@ -59,6 +73,15 @@ const Votes = ({anecdoteVotes}) => {
 const VoteButton = ({handleClick}) => {
   return(
     <button onClick={handleClick}>Vote</button>
+  )
+}
+
+const Anecdote = ({anecdote, votes}) => {
+  return(
+    <>
+      <p>{anecdote}</p>
+      <Votes anecdoteVotes={votes}/>
+    </>
   )
 }
 
