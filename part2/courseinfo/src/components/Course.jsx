@@ -1,4 +1,5 @@
 import Part from "./Part"
+import Total from "./Total"
 
 const Course = ({course}) => {
     return (
@@ -9,6 +10,7 @@ const Course = ({course}) => {
                     <Part key={part.id} name={part.name} exercises={part.exercises} />
                 )
             }
+            <Total parts={course.parts} />
         </>
     )
 }
