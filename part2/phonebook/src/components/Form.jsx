@@ -1,12 +1,12 @@
-const Form = ({handleSubmit, handleChangeName, handleChangeNumber}) => {
+const Form = ({name, number, handleSubmit, handleChangeName, handleChangeNumber}) => {
     return(
         <form onSubmit={handleSubmit}>
         <h3>Add new</h3>
         <div>
-          name: <input onChange={handleChangeName} />
+          name: <input value={name} onChange={handleChangeName} />
         </div>
         <div>
-          number: <input onChange={handleChangeNumber}/>
+          number: <input value={number} onChange={handleChangeNumber}/>
         </div>
         <div>
           <button type="submit">add</button>
