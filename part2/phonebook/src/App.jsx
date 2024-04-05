@@ -4,6 +4,7 @@ import Form from "./components/Form";
 import Numbers from './components/Numbers';
 import personsService from './services/persons'
 import Notification from './components/Notification';
+import ErrorNotification from './components/ErrorNotification';
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -11,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [notification, setNotification] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     personsService.
@@ -37,10 +39,11 @@ const App = () => {
             setNewName('')
             setNewNumber('')
 
-            showMessage(`Updated ${person.name}'s number`)
+            changeNotification(`Updated ${person.name}'s number`)
+          }).catch(() => {
+            changeError(`Information of ${person.name} has already been removed from server`)
           })
         }
-
       } else {
         const newPerson = {name: newName, number: newNumber}
 
@@ -51,7 +54,7 @@ const App = () => {
           setNewName('')
           setNewNumber('')
 
-          showMessage(`Added ${newPerson.name}`)
+          changeNotification(`Added ${newPerson.name}`)
         })
       }
     }
@@ -82,10 +85,17 @@ const App = () => {
     }
   }
 
-  const showMessage = (message) => {
+  const changeNotification = (message) => {
     setNotification(message)
     setTimeout(() => {
       setNotification('')
+    }, 3000)
+  }
+
+  const changeError = (message) => {
+    setErrorMessage(message)
+    setTimeout(() => {
+      setErrorMessage('')
     }, 3000)
   }
 
@@ -101,6 +111,7 @@ const App = () => {
         handleChangeNumber={changeNumber} 
       />
       <Notification message={notification} />
+      <ErrorNotification errorMessage={errorMessage} />
       <Numbers persons={persons} filter={filter} handleClick={deleteClick} />
     </div>
   )
