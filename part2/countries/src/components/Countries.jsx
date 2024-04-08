@@ -1,23 +1,23 @@
 const Countries = ({ list }) => {
-    let body
 
-    switch (true) {
-        case list.length > 10:
-            body = <p>{`Too many matches, specify another filter`}</p>
-            break;
-        case list.length > 1:
-            body = list.map(
-                country =>
-                    <li key={country.name.common}>{country.name.common}</li>
-            )
-            break;
-        case list.length === 1:
-            var country = list[0]
-
-            body = <div>
+    if (list.length > 10) return <p>Too many matches, specify another filter</p>
+    else if (list.length > 1) {
+        return (
+            <ul>
+                {list.map(
+                    country =>
+                        <li key={country.name.common}>{country.name.common}</li>
+                )}
+            </ul>
+        )
+    }
+    else if (list.length === 1) {
+        const country = list[0]
+        return (
+            <div>
                 <h2>{country.name.common}</h2>
-                <p>Capital: {country.capital}</p>
-                <p>Area: {country.area}</p>
+                <p>Capital: {country.capital || 'N/A'}</p>
+                <p>Area: {country.area || 'N/A'}</p>
 
                 <h3>Languages</h3>
                 <ul>
@@ -27,18 +27,13 @@ const Countries = ({ list }) => {
                 </ul>
                 <img src={`${country.flags.svg}`} alt={`${country.flags.alt}`} width={'300px'} />
             </div>
-
-            break;
-        default:
-            body = <p>{'No countries matching with filter'}</p>
-            break;
+        )
     }
-
-    return (
-        <>
-            {body}
-        </>
-    )
+    else {
+        return (
+            <p>{'No countries matching with filter'}</p>
+        )
+    }
 }
 
 export default Countries
