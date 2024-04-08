@@ -1,18 +1,20 @@
-const Countries = ({ list }) => {
+import Languages from "./Languages"
 
-    if (list.length > 10) return <p>Too many matches, specify another filter</p>
-    else if (list.length > 1) {
+const Countries = ({ countries }) => {
+
+    if (countries.length > 10) return <p>Too many matches, specify another filter</p>
+    else if (countries.length > 1) {
         return (
             <ul>
-                {list.map(
+                {countries.map(
                     country =>
                         <li key={country.name.common}>{country.name.common}</li>
                 )}
             </ul>
         )
     }
-    else if (list.length === 1) {
-        const country = list[0]
+    else if (countries.length === 1) {
+        const country = countries[0]
         return (
             <div>
                 <h2>{country.name.common}</h2>
@@ -20,11 +22,8 @@ const Countries = ({ list }) => {
                 <p>Area: {country.area || 'N/A'}</p>
 
                 <h3>Languages</h3>
-                <ul>
-                    {Object.entries(country.languages).map(lang =>
-                        <li key={lang[0]}>{lang[1]}</li>
-                    )}
-                </ul>
+                <Languages languages={country.languages} />
+
                 <img src={`${country.flags.svg}`} alt={`${country.flags.alt}`} width={'300px'} />
             </div>
         )
