@@ -1,31 +1,48 @@
-import Languages from "./Languages"
+import { useEffect, useState } from "react"
+import Country from "./Country"
 
-const Countries = ({ countries }) => {
+const Countries = ({ countries, filter }) => {
+    const [selectedCountry, setSelectedCountry] = useState(null)
+
+    const selectCountry = (country) => {
+        setSelectedCountry(country)
+    }
+
+    const goBack = () => {
+        setSelectedCountry(null)
+    }
+
+    useEffect(() => {
+        goBack()
+    }, [filter])
 
     if (countries.length > 10) return <p>Too many matches, specify another filter</p>
     else if (countries.length > 1) {
-        return (
-            <ul>
-                {countries.map(
-                    country =>
-                        <li key={country.name.common}>{country.name.common}</li>
-                )}
-            </ul>
-        )
+        if (!selectedCountry) {
+            return (
+                <ul>
+                    {countries.map(
+                        country =>
+                            <li key={country.name.common}>
+                                {country.name.common}
+                                <input type='button' value='Show' onClick={() => selectCountry(country)} />
+                            </li>
+                    )}
+                </ul>
+            )
+        } else {
+            return (
+                <>
+                    <input type="button" value='Back' onClick={goBack} />
+                    <Country country={selectedCountry} />
+                </>
+            )
+        }
     }
     else if (countries.length === 1) {
         const country = countries[0]
         return (
-            <div>
-                <h2>{country.name.common}</h2>
-                <p>Capital: {country.capital || 'N/A'}</p>
-                <p>Area: {country.area || 'N/A'}</p>
-
-                <h3>Languages</h3>
-                <Languages languages={country.languages} />
-
-                <img src={`${country.flags.svg}`} alt={`${country.flags.alt}`} width={'300px'} />
-            </div>
+            <Country country={country} />
         )
     }
     else {
