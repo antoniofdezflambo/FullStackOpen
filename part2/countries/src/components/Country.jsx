@@ -1,6 +1,9 @@
 import Languages from "./Languages"
+import Weather from "./Weather"
 
 const Country = ({ country }) => {
+    const [lat, lon] = country.latlng
+    
     return (
         <div>
             <h2>{country.name.common}</h2>
@@ -11,6 +14,8 @@ const Country = ({ country }) => {
             <Languages languages={country.languages} />
 
             <img src={`${country.flags.svg}`} alt={`${country.flags.alt}`} width={'300px'} />
+
+            <Weather capital={country.capital} lat={lat} lon={lon} />
         </div>
     )
 }
